@@ -1,6 +1,7 @@
 package com.dev.rhyan.furiastreetwear.ui.screens.form
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -32,6 +34,8 @@ fun FormScreen(
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    val context = LocalContext.current
 
     var expandedSocialMidias by remember { mutableStateOf(false) }
     var expandedOutfits by remember { mutableStateOf(false) }
@@ -80,10 +84,10 @@ fun FormScreen(
             }
         }
 
-        Spacer(modifier = Modifier.height(5.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         Text(
             text = "Fala Furioso! Curtiu o app? Conta pra gente sua experiência e desbloqueie novidades exclusivas!",
-            fontSize = 12.sp,
+            fontSize = 11.sp,
             fontWeight = FontWeight.Light,
             color = Color.White,
             textAlign = TextAlign.Center,
@@ -294,9 +298,9 @@ fun FormScreen(
                 onClick = {
                    viewModel.salvarFormularioFirestore(onResult = {
                        if(it == true) {
-                           Log.v("Sucess", "Formulário cadastrado.")
+                           Toast.makeText(context, "Formulário cadastrado com sucesso!", Toast.LENGTH_LONG).show()
                        } else {
-                           Log.v("Error", "Falha ao cadastrar formulário.")
+                           Toast.makeText(context, "Ops, ocorreu um erro ao cadastrar seu formulário, tente novamente", Toast.LENGTH_LONG).show()
                        }
                    })
                 },

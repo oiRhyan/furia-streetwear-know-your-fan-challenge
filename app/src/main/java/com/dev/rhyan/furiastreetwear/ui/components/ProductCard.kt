@@ -73,7 +73,9 @@ fun ProductCardItem(
             ) {
                 Spacer(modifier = Modifier.weight(1f))
                 FilledIconButton(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        onLinkClicked(product.link)
+                    },
                     colors = IconButtonDefaults.filledIconButtonColors(Color.White, Color.Black),
                     modifier = Modifier.size(30.dp)
                 ) {

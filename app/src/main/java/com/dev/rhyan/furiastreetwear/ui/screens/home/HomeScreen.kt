@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.dev.rhyan.furiastreetwear.R
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -49,6 +50,7 @@ fun HomeScreen(
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
 
     Column(
@@ -139,8 +141,8 @@ fun HomeScreen(
                         columns = GridCells.Fixed(2)
                     ) {
                         items(catalog.products) { product ->
-                            ProductCardItem(product = product, onLinkClicked = {
-
+                            ProductCardItem(product = product, onLinkClicked = { link ->
+                                viewModel.goToProduct(context, link)
                             }, onTryClothing = { selected ->
                                 viewModel.selectProduct(selected)
                             })
