@@ -99,31 +99,6 @@ class MainActivity : ComponentActivity() {
                 val currentDestination by navHostController.currentBackStackEntryAsState()
                 val currentScreen = currentDestination?.destination?.route
 
-                LaunchedEffect(uiState.value) {
-                    when (val state = uiState.value) {
-                        is LoginUIState.isEmpty -> {
-                            navHostController.navigate("login") {
-                                popUpTo("login") { inclusive = true }
-                            }
-                        }
-                        is LoginUIState.Error -> {
-                            Toast.makeText(
-                                applicationContext,
-                                state.message,
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                        is LoginUIState.Sucess -> {
-                            session.value = state.data
-                            if (navHostController.currentDestination?.route == "login") {
-                                navHostController.navigate("home") {
-                                    popUpTo("login") { inclusive = true }
-                                }
-                            }
-                        }
-                    }
-                }
-
                 Scaffold(
                     bottomBar = {
                         Box(
@@ -185,8 +160,33 @@ class MainActivity : ComponentActivity() {
                                 }
                                 composable("form") {
                                     FormScreen(
-                                        viewModel =formViewModel
+                                        viewModel =formViewModel,
+                                        session = session.value
                                     )
+                                }
+                            }
+                        }
+                    }
+                    LaunchedEffect(uiState.value) {
+                        when (val state = uiState.value) {
+                            is LoginUIState.isEmpty -> {
+                                navHostController.navigate("login") {
+                                    popUpTo("login") { inclusive = true }
+                                }
+                            }
+                            is LoginUIState.Error -> {
+                                Toast.makeText(
+                                    applicationContext,
+                                    state.message,
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                            is LoginUIState.Sucess -> {
+                                session.value = state.data
+                                if (navHostController.currentDestination?.route == "login") {
+                                    navHostController.navigate("home") {
+                                        popUpTo("login") { inclusive = true }
+                                    }
                                 }
                             }
                         }

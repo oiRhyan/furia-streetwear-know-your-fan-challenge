@@ -25,12 +25,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.dev.rhyan.furiastreetwear.R
+import com.dev.rhyan.furiastreetwear.data.models.response.UserDataProvider
 import com.dev.rhyan.furiastreetwear.ui.viewmodels.FormDataViewModel
 
 @OptIn(ExperimentalGlideComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun FormScreen(
-    viewModel : FormDataViewModel
+    viewModel : FormDataViewModel,
+    session: UserDataProvider?
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -76,7 +78,7 @@ fun FormScreen(
                     shape = CircleShape
                 ) {
                     GlideImage(
-                        model = R.drawable.banner,
+                        model = session?.photoUrl,
                         contentDescription = "ProfileImage",
                         contentScale = ContentScale.Crop
                     )
