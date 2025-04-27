@@ -28,6 +28,10 @@ O serviço provém rota de integração e processamento de imagem e o scrapping 
 
 ### Funcionamento das Rotas
 
+Este serviço de API Rest foi hospedado no serviço gratuito do Render Web Service.
+
+`Serviço` : https://furia-try-on.onrender.com
+
 #### Retornar produtos do site Furia.GG
 `GET /products` Rota para obter os produtos do site da furia.gg, retorna um .JSON com os campos "nome, image e link",
 - **name** : Retorna o nome completo do produto, recomendado formatar string para exibir no layout
@@ -55,6 +59,7 @@ de imagens registradas em um serviço web, como por exemplo AWS.
 ```
 
 - O retorno virá como um Buffer de Base64, para exibir a imagem garanta que seu programa possa converter o valor de `Base64`
+- A API possuí um limite de 5 minutos para cada requisição devído a ser um serviço gratuíto de hospedagem
 
 ```json
 {
@@ -128,5 +133,5 @@ Além disso, utilizamos classes `sealed` para representar o `UiState`, com três
 
 
 <h1 align="center">
-   Developed by Rhyan Araujo Chaves @2024
+   Developed by Rhyan Araujo Chaves @2025
 </h1>
